@@ -182,12 +182,9 @@ async function init() {
                 }
 
                 // if client is not using global commands, remove global commands
+                console.log('env.global is', env.GLOBAL)
                 if (!env.GLOBAL) {
-                    await client.application?.commands.cache.forEach(async (command) => {
-                        if (command.guild === null) {
-                            await command.delete()
-                        }
-                    })
+                    await client.application?.commands.set([])
                 }
 
                 resolveDependency(ActionManagerModule).then((actionManager) => {
