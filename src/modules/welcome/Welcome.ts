@@ -18,6 +18,7 @@ export class WelcomeModule {
 
         if (dashboardConfig.modules.welcome.channel) {
             console.log('guildMemberAdd', member)
+            console.log(await member.guild.channels.fetch(dashboardConfig.modules.welcome.channel))
             const channel = dashboardConfig.modules.welcome.channel === 'DM'
                 ? await member.createDM().catch(() => null)
                 : await member.guild.channels.fetch(dashboardConfig.modules.welcome.channel).catch(() => null)
