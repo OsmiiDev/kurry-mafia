@@ -1,0 +1,10 @@
+{
+    "_meta": {
+      "version": 1,
+      "name": "Warn"
+    },
+    "content": "",
+    "embeds": ["punishment-warn-embed"],
+    "components": []
+  }
+  

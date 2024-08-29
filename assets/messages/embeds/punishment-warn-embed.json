@@ -1,0 +1,13 @@
+{
+    "_meta": {
+      "version": 1,
+      "name": "Case Log Embed",
+      "flags": ["builtin"],
+      "requires": ["id", "description", "color", "now"]
+    },
+    "title": "You were warned \u2022 Case `{{id}}`",
+    "description": "{{description}}",
+    "color": "{{color}}",
+    "timestamp": "{{now}}"
+  }
+  

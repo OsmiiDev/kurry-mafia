@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "groups": [
+      {
+        "roles": ["1263156987034603627"],
+        "permissions": {
+          "viewLogs": true,
+          "viewHealth": true,
+
+          "manageSettings": true,
+          "managePermissions": false
+        }
+      }
+    ]
+  },
+  "modules": {
+    "welcome": {
+      "enabled": true,
+      "channel": "1263156987194118255",
+      "grantRole": "1263156986971820072"
+    },
+    "moderation": {
+      "replyAutomaticDeletion": {
+        "enabled": true,
+        "deleteReply": true,
+        "delay": 5000
+      },
+      "enabled": true,
+      "slowmode": {
+        "enabled": true,
+        "globalChannels": [
+          "1263156987630325785",
+          "1263156987307229240",
+          "1263156987307229242"
+        ]
+      },
+      "punishments": {
+        "warn": {
+          "enabled": true,
+          "expireAfter": 2592000000
+        }
+      },
+      "logging": {
+        "enabled": true,
+        "channel": "1263156987911213148"
+      }
+    }
+  }
+}

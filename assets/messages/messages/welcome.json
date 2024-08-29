@@ -1,0 +1,10 @@
+
+{
+    "_meta": {
+      "version": 1,
+      "name": "Warn"
+    },
+    "content": "Hi {{mention}}! Welcome to Kenadians! ^^\nPlease read our <#812160346059571201> and get roles from <#812159094214754377> <:kenHeart:870486419716587631>",
+    "components": []
+  }
+  

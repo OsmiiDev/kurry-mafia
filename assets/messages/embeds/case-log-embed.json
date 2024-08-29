@@ -1,0 +1,12 @@
+{
+  "_meta": {
+    "version": 1,
+    "name": "Case Log Embed",
+    "requires": ["id", "type", "description", "color", "now"],
+    "flags": ["builtin"]
+  },
+  "title": "Case `{{id}}` \u2022 {{type}}",
+  "description": "{{description}}",
+  "color": "{{color}}",
+  "timestamp": "{{now}}"
+}

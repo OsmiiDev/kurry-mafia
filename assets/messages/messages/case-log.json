@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "version": 1,
+    "name": "Case Log"
+  },
+  "content": "",
+  "embeds": ["case-log-embed"],
+  "components": []
+}
