@@ -181,6 +181,15 @@ async function init() {
                     await imagesUpload.syncWithDatabase()
                 }
 
+                // if client is not using global commands, remove global commands
+                if (!env.GLOBAL) {
+                    await client.application?.commands.cache.forEach(async (command) => {
+                        if (command.guild === null) {
+                            await command.delete()
+                        }
+                    })
+                }
+
                 resolveDependency(ActionManagerModule).then((actionManager) => {
                     actionManager.init()
                 })

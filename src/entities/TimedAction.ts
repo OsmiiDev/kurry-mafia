@@ -41,8 +41,11 @@ export class TimedActionEntity extends CustomBaseEntity {
     @Property()
     expired: boolean = false
 
-    @Property({ nullable: true })
-    additionalData: string | null
+    @Property({ nullable: true, default: null, type: 'array' })
+    logMessage: [string, string] | null
+
+    @Property({ nullable: true, type: 'json' })
+    additionalData: {[key: string]: any} | null
 
 }
 
@@ -69,7 +72,7 @@ export class TimedActionRepository extends EntityRepository<TimedActionEntity> {
                 reason: action.reason,
                 startTime: action.startTime,
                 endTime: action.endTime,
-                additionalData: JSON.parse(action.additionalData || '{}'),
+                additionalData: action.additionalData,
             })
         }
 
@@ -89,12 +92,10 @@ export class TimedActionRepository extends EntityRepository<TimedActionEntity> {
         entity.reason = action.reason
         entity.startTime = new Date().getTime()
         entity.endTime = action.length === -1 ? -1 : entity.startTime + action.length
-        entity.additionalData = JSON.stringify(action.additionalData)
+        entity.additionalData = action.additionalData
         entity.id = id
 
         await this.em.persistAndFlush(entity)
-
-        entity.additionalData = JSON.parse(entity.additionalData)
 
         return entity
     }

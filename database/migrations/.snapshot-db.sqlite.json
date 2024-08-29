@@ -579,15 +579,26 @@
           "default": "false",
           "mappedType": "integer"
         },
-        "additional_data": {
-          "name": "additional_data",
+        "log_message": {
+          "name": "log_message",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "length": null,
+          "default": "null",
           "mappedType": "text"
+        },
+        "additional_data": {
+          "name": "additional_data",
+          "type": "json",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": null,
+          "mappedType": "json"
         }
       },
       "name": "timed_action_entity",

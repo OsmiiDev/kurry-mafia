@@ -45,6 +45,9 @@ export default class InteractionCreateEvent {
         await this.stats.registerInteraction(interaction as AllInteractions)
         this.logger.logInteraction(interaction as AllInteractions)
 
+        if (interaction.isButton()) {
+            console.log(`Button interaction ${interaction.customId}`)
+        }
         client.executeInteraction(interaction)
     }
 

@@ -1,7 +1,7 @@
 import { channel } from 'node:diagnostics_channel'
 
-import { CategoryChannel, ChannelResolvable, ChatInputCommandInteraction, CommandInteraction, GuildChannel, GuildMember, Interaction, NewsChannel, PrivateThreadChannel, PublicThreadChannel, StageChannel, TextChannel, VoiceChannel } from 'discord.js'
-import { Client, Discord, SimpleCommandMessage } from 'discordx'
+import { CategoryChannel, ChannelResolvable, ChatInputCommandInteraction, CommandInteraction, GuildChannel, GuildMember, Interaction, Message, NewsChannel, PrivateThreadChannel, PublicThreadChannel, StageChannel, TextChannel, VoiceChannel } from 'discord.js'
+import { ButtonComponent, Client, Discord, SimpleCommandMessage } from 'discordx'
 import { delay, inject } from 'tsyringe'
 
 import { dashboardConfig } from '@/configs'
@@ -27,7 +27,7 @@ export class WarnModule {
     async reset() {
     }
 
-    async warn(user: GuildMember, reason: string | undefined, length: string | undefined, command: CommandInteraction | SimpleCommandMessage): Promise<Task[]> {
+    async warn(user: GuildMember, reason: string | undefined, length: string | undefined, command: CommandInteraction | SimpleCommandMessage, evidence: Message<boolean> | null): Promise<Task[]> {
         reason = reason || L.en.COMMANDS.WARN.REASON()
 
         const actionManager = await resolveDependency(ActionManagerModule)
@@ -57,6 +57,7 @@ export class WarnModule {
             length: parsedLength * 1000 || -1,
             additionalData: {
                 duration: parsedLength,
+                evidence: evidence ? [{ evidence: evidence.content, author: evidence.author.id, timestamp: evidence.createdTimestamp }] : [],
             },
         })
 
@@ -101,21 +102,6 @@ export class WarnModule {
         }
 
         return [...successTasks, ...failedTasks]
-    }
-
-    @OnCustom('timedActionExpire')
-    async timedActionExpireHandler(data: TimedAction) {
-        if (data.type !== 'slowmode') return
-
-        for (const channelId of data.additionalData.channels) {
-            const channel = await this.client.channels.fetch(channelId).catch(() => null)
-            if (!channel) continue
-
-            if (channel.isTextBased() && data.additionalData.before[channelId]) {
-                if (channel instanceof CategoryChannel || !(channel instanceof GuildChannel)) continue
-                await channel.setRateLimitPerUser(data.additionalData.before[channelId], 'Automatic action expired').catch(() => null)
-            }
-        }
     }
 
 }

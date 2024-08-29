@@ -33,11 +33,11 @@ export default class SlowmodeCommand {
             @SimpleCommandOption({ name: 'time', type: SimpleCommandOptionType.String }) time: string | undefined,
             command: SimpleCommandMessage
     ) {
-        const reason = argSplitter(command.message.content).length > 2 ? argSplitter(command.message.content).slice(2).join(' ') : undefined
-        const localize = L.en
-
         const assoc = (await command.message.guild!.commands.fetch()).find(cmd => cmd.name === 'slowmode')
         if (!(await hasCommandPermission(command.message.member!, command.message.channel as GuildChannel, assoc!, this.client))) return
+
+        const reason = argSplitter(command.message.content).length > 2 ? argSplitter(command.message.content).slice(2).join(' ') : undefined
+        const localize = L.en
 
         const channel = command.message.channel as TextChannel
         time = time || '0s'
