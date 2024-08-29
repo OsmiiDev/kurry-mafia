@@ -33,7 +33,8 @@ export default class SlowmodeCommand {
     }
 
     @Slash({
-        description: 'Set slowmode for all configured channels.',
+        description: 'Warn a user.',
+        defaultMemberPermissions: ['ModerateMembers'],
     })
     async warn(
         @SlashOption({ name: 'user', type: ApplicationCommandOptionType.User, required: true, description: 'The user to warn' }) user: User,
