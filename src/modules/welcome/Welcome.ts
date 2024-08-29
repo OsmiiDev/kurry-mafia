@@ -2,14 +2,16 @@ import { GuildMember } from 'discord.js'
 import { ArgsOf, Client, Discord } from 'discordx'
 
 import { dashboardConfig } from '@/configs'
-import { On } from '@/decorators'
+import { On, Service } from '@/decorators'
 import { buildMessage, templatedMessage } from '@/utils/functions'
 
 @Discord()
+@Service()
 export class WelcomeModule {
 
     @On('guildMemberAdd')
     async onGuildMemberAdd([member]: ArgsOf<'guildMemberAdd'>) {
+        console.log('guildMemberAdd')
         if (!dashboardConfig.modules.welcome.enabled) return
 
         if (dashboardConfig.modules.welcome.channel) {
