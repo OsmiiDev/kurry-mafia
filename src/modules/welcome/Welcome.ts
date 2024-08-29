@@ -11,7 +11,7 @@ export class WelcomeModule {
 
     @On('guildMemberAdd')
     async onGuildMemberAdd([member]: ArgsOf<'guildMemberAdd'>) {
-        console.log('guildMemberAdd')
+        console.log('guildMemberAdd', dashboardConfig)
         if (!dashboardConfig.modules.welcome.enabled) return
 
         if (dashboardConfig.modules.welcome.channel) {
