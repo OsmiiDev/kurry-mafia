@@ -11,16 +11,18 @@ export class WelcomeModule {
 
     @On('guildMemberAdd')
     async onGuildMemberAdd([member]: ArgsOf<'guildMemberAdd'>) {
-        console.log('guildMemberAdd', dashboardConfig)
+        console.log('en', dashboardConfig.modules.welcome.enabled)
         if (!dashboardConfig.modules.welcome.enabled) return
 
         if (dashboardConfig.modules.welcome.channel) {
+            console.log('guildMemberAdd', dashboardConfig)
             const channel = dashboardConfig.modules.welcome.channel === 'DM'
                 ? await member.createDM().catch(() => null)
                 : await member.guild.channels.fetch(dashboardConfig.modules.welcome.channel).catch(() => null)
             if (!channel || !channel.isTextBased()) return
 
-            // @TODO Message templates
+            console.log('guildMemberAdd', channel)
+            
             await channel.send(await buildMessage('welcome', {
                 mention: member.toString(),
                 username: member.user.username,
