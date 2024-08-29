@@ -9,7 +9,7 @@ export function clientConfig(): ClientOptions {
 	return {
 
 		// to only use global commands (use @Guild for specific guild command), comment this line
-		botGuilds: env.NODE_ENV === 'development' ? [env.BOT_GUILD_ID] : undefined,
+		botGuilds: env.GLOBAL ? undefined : [env.BOT_GUILD_ID],
 
 		// discord intents
 		intents: [
