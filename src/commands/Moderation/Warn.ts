@@ -1,13 +1,12 @@
 import { Category } from '@discordx/utilities'
-import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildChannel, GuildMember, Message, NewsChannel, PrivateThreadChannel, PublicThreadChannel, StageChannel, TextChannel, User, VoiceChannel } from 'discord.js'
+import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildChannel, User } from 'discord.js'
 import { Client, Guard, SimpleCommand, SimpleCommandMessage, SimpleCommandOption, SimpleCommandOptionType } from 'discordx'
 
-import { Discord, Slash, SlashGroup, SlashOption } from '@/decorators'
+import { Discord, Slash, SlashOption } from '@/decorators'
 import { Cooldown, GuildOnly } from '@/guards'
 import { L } from '@/i18n'
 import { WarnModule } from '@/modules'
-import { Database } from '@/services'
-import { argSplitter, hasCommandPermission, replyToInteraction, resolveDependency, simpleErrorEmbed, stringToTime, taskEmbed, timeToString } from '@/utils/functions'
+import { argSplitter, hasCommandPermission, replyToInteraction, resolveDependency, simpleErrorEmbed, stringToTime, taskEmbed } from '@/utils/functions'
 
 @Discord()
 @Category('Moderation')

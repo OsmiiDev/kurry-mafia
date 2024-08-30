@@ -31,10 +31,9 @@ export default class HelpCommand {
             command: SimpleCommandMessage
     ) {
         const assoc = (await command.message.guild!.commands.fetch()).find(cmd => cmd.name === 'help')
-        if (!(await hasCommandPermission(command.message.member!, command.message.channel as GuildChannel, assoc!, this.client))) return
+        if (!assoc || !(await hasCommandPermission(command.message.member!, command.message.channel as GuildChannel, assoc, this.client))) return
 
-        const locale = L.en
-        const embed = (await this.defaultEmbed(this.client, locale, command.message.guild!))
+        const embed = (await this.defaultEmbed(this.client, L.en, command.message.guild!))
             .setFooter({
                 text: `@${command.message.author.username}`,
                 iconURL: command.message.author.displayAvatarURL({ forceStatic: false }),
@@ -42,7 +41,7 @@ export default class HelpCommand {
             .setTimestamp()
 
         const components: any[] = []
-        components.push(this.getSelectDropdown('categories', locale).toJSON())
+        components.push(this.getSelectDropdown('categories', L.en).toJSON())
 
         const options = await command.resolveOptions()
         console.log(options)
@@ -59,11 +58,10 @@ export default class HelpCommand {
     async help(
 		@SlashOption({
 		    name: 'category',
-		    description: 'The category of commands to get help for.',
+		    description: 'The category of commands to get help for',
 		    type: ApplicationCommandOptionType.String,
 		    required: false,
 		    autocomplete(interaction, _command) {
-		        console.log('autocomplete')
 		        const commands: CommandCategory[] = MetadataStorage.instance.applicationCommandSlashesFlat as CommandCategory[]
 		        const value = interaction.options.getFocused() || ''
 
@@ -173,7 +171,6 @@ export default class HelpCommand {
     }): Promise<EmbedBuilder> {
         const commands = this._categories.get(category)
 
-        // default embed
         if (!commands) {
             const currentGuild = resolveGuild(interaction)
 
@@ -183,7 +180,6 @@ export default class HelpCommand {
             }).setTimestamp()
         }
 
-        // specific embed
         const chunks = chunkArray(commands, 24)
         const maxPage = chunks.length
         const resultsOfPage = chunks[pageNumber]
@@ -195,7 +191,7 @@ export default class HelpCommand {
                 iconURL: interaction.user.displayAvatarURL({ forceStatic: false }),
             })
             .setTimestamp()
-            .setColor(colorsConfig.primary as ColorResolvable)
+            .setColor(getColor('primary'))
 
         if (!resultsOfPage)
             return embed

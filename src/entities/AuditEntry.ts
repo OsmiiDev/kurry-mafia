@@ -1,8 +1,6 @@
 import { Entity, EntityRepositoryType, Loaded, PrimaryKey, Property } from '@mikro-orm/core'
 import { EntityRepository } from '@mikro-orm/sqlite'
 
-import { timeAgo } from '@/utils/functions'
-
 import { CustomBaseEntity } from './BaseEntity'
 
 type QueryType = {

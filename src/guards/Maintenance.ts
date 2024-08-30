@@ -2,7 +2,7 @@ import { CommandInteraction, ContextMenuCommandInteraction, EmbedBuilder } from 
 import { ArgsOf, GuardFunction, SimpleCommandMessage } from 'discordx'
 
 import { getLocaleFromInteraction, L } from '@/i18n'
-import { isDev, isInMaintenance, replyToInteraction, resolveUser, simpleErrorEmbed } from '@/utils/functions'
+import { getColor, isDev, isInMaintenance, replyToInteraction, resolveUser, simpleErrorEmbed } from '@/utils/functions'
 
 /**
  * Prevent interactions from running when bot is in maintenance
@@ -30,7 +30,7 @@ export const Maintenance: GuardFunction<
 				await simpleErrorEmbed(arg, localizedReplyMessage, true)
 
 			const embed = new EmbedBuilder()
-				.setColor(0xED4245) // RED // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
+				.setColor(getColor('red')) // RED // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
 				.setTitle(`<:Failure:1087891244874748067> ${localizedReplyMessage}`)
 
 			if (arg instanceof SimpleCommandMessage)

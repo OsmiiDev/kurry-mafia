@@ -23,17 +23,13 @@ export class ActionManagerModule {
     ) {
     }
 
-    async createTimedAction(data: UnparsedTimedAction): Promise<TimedActionEntity> {
-        const repo = this.db.get(TimedActionEntity)
-
-        const entity = await repo.createTimedAction(data)
-        console.log(data, entity)
-
+    async createTimedAction(data: UnparsedTimedAction): Promise<TimedActionEntity> { 
+        const entity = await this.db.get(TimedActionEntity).createTimedAction(data)
         this.loggingModule.createLog(entity)
 
         if (data.length === -1) return entity
 
-        this.longTimeout(async () => {
+        this.timeoutUntil(async () => {
             this.eventManager.emit('timedActionExpire', entity)
         }, entity.endTime)
 
@@ -41,22 +37,19 @@ export class ActionManagerModule {
     }
 
     async init() {
-        console.log(this.db.em.getRepository(TimedActionEntity))
         this.db.get(TimedActionEntity).getAllUnexpiredActions().then((actions) => {
             this.logger.log(`Loaded ${actions.length} unexpired timed actions`)
             for (const action of actions) {
-                // @TODO Adaptive slowmode
-
-                this.longTimeout(async () => {
+                this.timeoutUntil(async () => {
                     this.eventManager.emit('timedActionExpire', action)
                 }, action.endTime)
             }
         })
     }
 
-    async longTimeout(callback: () => void, endTime: number) {
+    private async timeoutUntil(callback: () => void, endTime: number) {
         if (endTime - Date.now() > 2147483647) {
-            setTimeout(() => this.longTimeout(callback, endTime), 2147483647)
+            setTimeout(() => this.timeoutUntil(callback, endTime), 2147483647)
         } else {
             setTimeout(callback, endTime - Date.now())
         }

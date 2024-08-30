@@ -7,7 +7,7 @@ import { ButtonComponent as XButtonComponent, Client, Guard, SimpleCommand, Simp
 import { colorsConfig } from '@/configs'
 import { Discord, Slash } from '@/decorators'
 import { Cooldown } from '@/guards'
-import { hasCommandPermission, resolveDependency, simpleErrorEmbed } from '@/utils/functions'
+import { getColor, hasCommandPermission, resolveDependency, simpleErrorEmbed } from '@/utils/functions'
 
 import { triviaQuestions } from '../constants'
 
@@ -29,7 +29,7 @@ export default class TriviaCommand {
 
             if (message && message.author.id !== interaction.user.id) {
                 interaction.reply({
-                    embeds: [new EmbedBuilder().setColor(0xED4245).setTitle('<:Failure:1262210692912648192> You cannot interact with this button.')],
+                    embeds: [new EmbedBuilder().setColor(getColor('red')).setTitle('<:Failure:1262210692912648192> You cannot interact with this button.')],
                     ephemeral: true,
                 })
 
@@ -37,7 +37,7 @@ export default class TriviaCommand {
             }
         } else if (interaction.message.interaction?.user.id !== interaction.user.id && interaction.message.reference?.messageId !== interaction.id) {
             interaction.reply({
-                embeds: [new EmbedBuilder().setColor(0xED4245).setTitle('<:Failure:1262210692912648192> You cannot interact with this button.')],
+                embeds: [new EmbedBuilder().setColor(getColor('red')).setTitle('<:Failure:1262210692912648192> You cannot interact with this button.')],
                 ephemeral: true,
             })
 
@@ -64,7 +64,7 @@ export default class TriviaCommand {
             })
 
             const embed = new EmbedBuilder()
-                .setColor(0xED4245)
+                .setColor(getColor('red'))
                 .setTitle('<:Failure:1262210692912648192> This answer is incorrect.')
 
             interaction.reply({
@@ -81,7 +81,7 @@ export default class TriviaCommand {
 
             if (message && message.author.id !== interaction.user.id) {
                 interaction.reply({
-                    embeds: [new EmbedBuilder().setColor(0xED4245).setTitle('<:Failure:1262210692912648192> You cannot interact with this button.')],
+                    embeds: [new EmbedBuilder().setColor(getColor('red')).setTitle('<:Failure:1262210692912648192> You cannot interact with this button.')],
                     ephemeral: true,
                 })
 
@@ -116,7 +116,7 @@ export default class TriviaCommand {
             })
 
             const embed = new EmbedBuilder()
-                .setColor(0x57F287)
+                .setColor(getColor('green'))
                 .setTitle('<:Success:1262209405445738557> This answer is correct!')
 
             interaction.reply({
@@ -162,8 +162,8 @@ export default class TriviaCommand {
     @Guard(Cooldown(10))
     async trivia(
         interaction: CommandInteraction,
-        client: Client,
-        { localize }: InteractionData
+        _client: Client,
+        { localize: _localize }: InteractionData
     ) {
         await interaction.deferReply()
 

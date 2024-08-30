@@ -36,4 +36,6 @@ export const generalConfig: GeneralConfigType = {
 export const colorsConfig = {
 
 	primary: '#DAF140',
+	green: '#57F287',
+	red: '#ED4245',
 }

@@ -10,7 +10,7 @@ import { AuditEntry, TimedActionEntity } from '@/entities'
 import { L } from '@/i18n'
 import { ActionManagerModule, LoggingModule } from '@/modules'
 import { Database, EventManager, Logger } from '@/services'
-import { buildMessage, resolveDependency, simpleSuccessEmbed, stringToTime, timeToString } from '@/utils/functions'
+import { buildMessage, getColor, resolveDependency, simpleSuccessEmbed, stringToTime, timeToString } from '@/utils/functions'
 
 @Discord()
 @Service()
@@ -40,7 +40,7 @@ export class CaseEvidenceModule {
 
         if (!evidence || evidence.length === 0) {
             const embed = new EmbedBuilder()
-                .setColor(0xED4245)
+                .setColor(getColor('red'))
                 .setTitle(`<:Failure:1262210692912648192> No evidence found for case \`${id}\``)
 
             interaction.reply({ embeds: [embed], ephemeral: true })
@@ -51,7 +51,7 @@ export class CaseEvidenceModule {
             )
 
             const embeds = evidence.map((e: { evidence: string, author: string, timestamp: number }, i: number) => new EmbedBuilder()
-                .setColor(0x57F287)
+                .setColor(getColor('primary'))
                 .setDescription(`${i === 0 ? `⭐ ` : ''}${e.evidence}`)
                 .setFooter({
                     text: `Submitted by ${authors[i].username}`,
@@ -112,7 +112,7 @@ export class CaseEvidenceModule {
         this.loggingModule.recreateLog(entry)
 
         const embed = new EmbedBuilder()
-            .setColor(0x57F287) // GREEN // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
+            .setColor(getColor('green'))
             .setTitle(`<:Success:1262209405445738557> Successfully attached evidence to case \`${id}\``)
 
         interaction.reply({ embeds: [embed], ephemeral: true })

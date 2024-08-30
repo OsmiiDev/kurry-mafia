@@ -3,6 +3,7 @@ import { CommandInteraction, EmbedBuilder, Message } from 'discord.js'
 import { Client } from 'discordx'
 
 import { Discord, Slash } from '@/decorators'
+import { getColor } from '@/utils/functions'
 
 @Discord()
 @Category('General')
@@ -25,7 +26,7 @@ export default class PingCommand {
 		})
 
 		const embed = new EmbedBuilder()
-			.setColor(0x57F287) // GREEN // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
+			.setColor(getColor('green'))
 			.setDescription(`<:Success:1087892239449075712> ${content}`)
 		await msg.edit({ content: '', embeds: [embed] })
 	}

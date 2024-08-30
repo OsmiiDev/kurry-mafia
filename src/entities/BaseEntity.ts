@@ -1,5 +1,4 @@
-import { EntityRepository } from '@mikro-orm/better-sqlite'
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core'
+import { Property } from '@mikro-orm/core'
 
 export abstract class CustomBaseEntity {
 

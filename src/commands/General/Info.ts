@@ -1,15 +1,14 @@
 import { Category } from '@discordx/utilities'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, EmbedField, GuildChannel } from 'discord.js'
+import { CommandInteraction, EmbedBuilder, EmbedField, GuildChannel } from 'discord.js'
 import { Client, SimpleCommand, SimpleCommandMessage, SimpleCommandOption, SimpleCommandOptionType } from 'discordx'
 
 import { generalConfig } from '@/configs'
 import { Discord, Injectable, Slash } from '@/decorators'
 import { Cooldown, Guard, GuildOnly } from '@/guards'
 import { L } from '@/i18n'
-import { Stats } from '@/services'
-import { getColor, getTscordVersion, hasCommandPermission, isValidUrl, replyToInteraction, resolveDependency, timeAgo } from '@/utils/functions'
+import { getColor, hasCommandPermission, replyToInteraction, resolveDependency } from '@/utils/functions'
 
 import packageJson from '../../../package.json'
 
@@ -29,11 +28,10 @@ export default class InfoCommand {
     @SimpleCommand({ name: 'info' })
     @Guard(GuildOnly, Cooldown(3))
     async infoCommand(
-            @SimpleCommandOption({ name: 'category', type: SimpleCommandOptionType.String }) category: string | undefined,
-            command: SimpleCommandMessage
+        command: SimpleCommandMessage
     ) {
-        const assoc = (await command.message.guild!.commands.fetch()).find(cmd => cmd.name === 'help')
-        if (!(await hasCommandPermission(command.message.member!, command.message.channel as GuildChannel, assoc!, this.client))) return
+        const assoc = (await command.message.guild!.commands.fetch()).find(cmd => cmd.name === 'info')
+        if (!assoc || !(await hasCommandPermission(command.message.member!, command.message.channel as GuildChannel, assoc, this.client))) return
 
         this.execute(command)
     }

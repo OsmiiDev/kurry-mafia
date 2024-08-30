@@ -1,5 +1,5 @@
 import { Category } from '@discordx/utilities'
-import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildChannel, Message, NewsChannel, PrivateThreadChannel, PublicThreadChannel, StageChannel, TextChannel, VoiceChannel } from 'discord.js'
+import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildChannel, TextChannel } from 'discord.js'
 import { Client, Guard, SimpleCommand, SimpleCommandMessage, SimpleCommandOption, SimpleCommandOptionType } from 'discordx'
 
 import { dashboardConfig } from '@/configs'
@@ -7,13 +7,15 @@ import { Discord, Slash, SlashGroup, SlashOption } from '@/decorators'
 import { Cooldown, GuildOnly } from '@/guards'
 import { L } from '@/i18n'
 import { SlowmodeModule } from '@/modules'
-import { Database } from '@/services'
 import { argSplitter, hasCommandPermission, replyToInteraction, resolveDependency, simpleErrorEmbed, stringToTime, taskEmbed, timeToString } from '@/utils/functions'
 
 @Discord()
 @Category('Moderation')
-@SlashGroup({ description: 'Set slowmode globally, in a channel, or in a category.', name: 'slowmode', defaultMemberPermissions: ['ManageChannels'] })
-// Assign all inherit slashes to the group
+@SlashGroup({
+    description: 'Set slowmode globally, in a channel, or in a category',
+    name: 'slowmode',
+    defaultMemberPermissions: ['ManageChannels'],
+})
 @SlashGroup('slowmode')
 export default class SlowmodeCommand {
 
@@ -34,7 +36,7 @@ export default class SlowmodeCommand {
             command: SimpleCommandMessage
     ) {
         const assoc = (await command.message.guild!.commands.fetch()).find(cmd => cmd.name === 'slowmode')
-        if (!(await hasCommandPermission(command.message.member!, command.message.channel as GuildChannel, assoc!, this.client))) return
+        if (!assoc || !(await hasCommandPermission(command.message.member!, command.message.channel as GuildChannel, assoc, this.client))) return
 
         const reason = argSplitter(command.message.content).length > 2 ? argSplitter(command.message.content).slice(2).join(' ') : undefined
         const localize = L.en

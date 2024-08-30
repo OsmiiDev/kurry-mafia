@@ -6,7 +6,7 @@ import { dashboardConfig } from '@/configs'
 import { Service } from '@/decorators'
 import { TimedActionEntity } from '@/entities'
 import { Database, EventManager, Logger } from '@/services'
-import { buildMessage, timeToString } from '@/utils/functions'
+import { buildMessage, getColor, timeToString } from '@/utils/functions'
 
 @Service()
 export class LoggingModule {
@@ -26,8 +26,8 @@ export class LoggingModule {
             console.log(lines[4])
 
             return new EmbedBuilder()
-                .setDescription(`${lines.join('\n')}\n`)
-                .setColor(0xFEE75C)
+                .setDescription(`${lines.filter(x => x).join('\n')}\n`)
+                .setColor(getColor('primary'))
         },
         'reset-slowmode': async (data) => {
             const lines = [
@@ -37,8 +37,8 @@ export class LoggingModule {
             ]
 
             return new EmbedBuilder()
-                .setDescription(`${lines.join('\n')}\n`)
-                .setColor(0xFEE75C)
+                .setDescription(`${lines.filter(x => x).join('\n')}\n`)
+                .setColor(getColor('primary'))
         },
         'warn': async (data) => {
             const lines = [
@@ -51,7 +51,7 @@ export class LoggingModule {
 
             return new EmbedBuilder()
                 .setDescription(`${lines.filter(x => x).join('\n')}\n`)
-                .setColor(0xFEE75C)
+                .setColor(getColor('primary'))
         },
     }
 

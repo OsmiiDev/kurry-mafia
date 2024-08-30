@@ -2,7 +2,7 @@ import { ColorResolvable, CommandInteraction, EmbedBuilder } from 'discord.js'
 import { SimpleCommandMessage } from 'discordx'
 
 import { colorsConfig } from '@/configs'
-import { replyToInteraction } from '@/utils/functions'
+import { getColor, replyToInteraction } from '@/utils/functions'
 
 /**
  * Send a simple success embed
@@ -11,7 +11,7 @@ import { replyToInteraction } from '@/utils/functions'
  */
 export function simpleSuccessEmbed(interaction: CommandInteraction | SimpleCommandMessage, message: string, ephemeral = true) {
     const embed = new EmbedBuilder()
-        .setColor(0x57F287) // GREEN // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
+        .setColor(getColor('green')) // GREEN // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
         .setTitle(`<:Success:1262209405445738557> ${message}`)
 
     replyToInteraction(interaction, { embeds: [embed] }, ephemeral)
@@ -24,7 +24,7 @@ export function simpleSuccessEmbed(interaction: CommandInteraction | SimpleComma
  */
 export function simpleErrorEmbed(interaction: CommandInteraction | SimpleCommandMessage, message: string, ephemeral = true) {
     const embed = new EmbedBuilder()
-        .setColor(0xED4245) // RED // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
+        .setColor(getColor('red')) // RED // see: https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Colors.js
         .setTitle(`<:Failure:1262210692912648192> ${message}`)
 
     replyToInteraction(interaction, { embeds: [embed] }, ephemeral)
@@ -53,7 +53,7 @@ export function taskEmbed(builder: EmbedBuilder, items: { success: boolean, desc
         },
     ])
     builder.setDescription(null)
-    builder.setColor(colorsConfig.primary as ColorResolvable)
+    builder.setColor(getColor('primary'))
 
     return builder
 }
