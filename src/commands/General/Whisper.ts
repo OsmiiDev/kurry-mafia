@@ -80,7 +80,7 @@ _client: Client
             if (!thread.isTextBased()) return;
 
             (channel as ThreadChannel).send({
-                content: `**${interaction.user.username} whispers to ${user.user.username}...`,
+                content: `**${interaction.user.username} whispers to ${user.user.username}**...`,
             })
         })
     }
