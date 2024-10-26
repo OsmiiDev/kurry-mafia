@@ -8,18 +8,18 @@ import { EntityRepository } from '@mikro-orm/sqlite'
 @Entity({ repository: () => PastebinRepository })
 export class Pastebin {
 
-	[EntityRepositoryType]?: PastebinRepository
+    [EntityRepositoryType]?: PastebinRepository
 
-	@PrimaryKey({ autoincrement: false })
+    @PrimaryKey({ autoincrement: false })
     id: string
 
-	@Property()
+    @Property()
     editCode: string
 
-	@Property()
+    @Property()
     lifetime: number = -1
 
-	@Property()
+    @Property()
     createdAt: Date = new Date()
 
 }

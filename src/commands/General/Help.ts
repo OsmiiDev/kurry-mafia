@@ -1,14 +1,12 @@
-import { Category, RateLimit, TIME_UNIT } from '@discordx/utilities'
-import { ActionRowBuilder, APISelectMenuOption, ApplicationCommandOptionType, ColorResolvable, CommandInteraction, EmbedBuilder, Guild, GuildChannel, GuildMember, SlashCommandStringOption, StringSelectMenuBuilder, StringSelectMenuInteraction } from 'discord.js'
+import { Category } from '@discordx/utilities'
+import { ActionRowBuilder, APISelectMenuOption, ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, Guild, GuildChannel, GuildMember, StringSelectMenuBuilder, StringSelectMenuInteraction } from 'discord.js'
 import { Client, Guard, MetadataStorage, SelectMenuComponent, SimpleCommand, SimpleCommandMessage, SimpleCommandOption, SimpleCommandOptionType } from 'discordx'
-import { optional } from 'joi'
 import { TranslationFunctions } from 'src/i18n/i18n-types'
 
-import { colorsConfig } from '@/configs'
-import { Discord, Slash, SlashChoice, SlashOption } from '@/decorators'
+import { Discord, Slash, SlashOption } from '@/decorators'
 import { Cooldown, GuildOnly } from '@/guards'
 import { L } from '@/i18n'
-import { chunkArray, getColor, hasCommandPermission, hasCommandPermissionAnywhere, replyToInteraction, resolveDependencies, resolveDependency, resolveGuild, validString } from '@/utils/functions'
+import { chunkArray, getColor, hasCommandPermission, hasCommandPermissionAnywhere, replyToInteraction, resolveDependency, resolveGuild, validString } from '@/utils/functions'
 
 @Discord()
 @Category('General')
@@ -56,36 +54,36 @@ export default class HelpCommand {
     })
     @Guard(GuildOnly, Cooldown(3))
     async help(
-		@SlashOption({
-		    name: 'category',
-		    description: 'The category of commands to get help for',
-		    type: ApplicationCommandOptionType.String,
-		    required: false,
-		    autocomplete(interaction, _command) {
-		        const commands: CommandCategory[] = MetadataStorage.instance.applicationCommandSlashesFlat as CommandCategory[]
-		        const value = interaction.options.getFocused() || ''
+@SlashOption({
+    name: 'category',
+    description: 'The category of commands to get help for',
+    type: ApplicationCommandOptionType.String,
+    required: false,
+    autocomplete(interaction, _command) {
+        const commands: CommandCategory[] = MetadataStorage.instance.applicationCommandSlashesFlat as CommandCategory[]
+        const value = interaction.options.getFocused() || ''
 
-		        const categories = new Set<string>()
-		        for (const command of commands) {
-		            const { category } = command
+        const categories = new Set<string>()
+        for (const command of commands) {
+            const { category } = command
 
-		            if (!category || !validString(category))
-		                continue
+            if (!category || !validString(category))
+                continue
 
-		            if (value === '') categories.add(category)
-		            if (value && category.toLowerCase().includes(value.toLowerCase()))
-		                categories.add(category)
-		        }
+            if (value === '') categories.add(category)
+            if (value && category.toLowerCase().includes(value.toLowerCase()))
+                categories.add(category)
+        }
 
-		        interaction.respond(Array.from(categories).map(category => ({
-		            name: category,
-		            value: category,
-		        })))
-		    },
-		}) category: string | undefined,
-		interaction: CommandInteraction,
-		client: Client,
-		{ localize }: InteractionData
+        interaction.respond(Array.from(categories).map(category => ({
+            name: category,
+            value: category,
+        })))
+    },
+}) category: string | undefined,
+interaction: CommandInteraction,
+client: Client,
+{ localize }: InteractionData
     ) {
         const embed = await this.getEmbed({ client, interaction, locale: localize })
 

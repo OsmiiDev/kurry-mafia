@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs'
 
-import { Embed, EmbedBuilder, Message, MessageCreateOptions, MessagePayload } from 'discord.js'
+import { EmbedBuilder, Message, MessageCreateOptions } from 'discord.js'
 
-import { argSplitter, templatedMessage } from './String'
+import { templatedMessage } from './String'
 
-export async function extractArgs(message: Message) {
+export async function extractArgs(_message: Message) {
     // @IMPORTANT useless xd
 }
 

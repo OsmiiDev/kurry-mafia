@@ -74,7 +74,8 @@ export class BotController extends BaseController {
                 member,
                 permissions,
             }
-        } catch (err) {
+        // eslint-disable-next-line unused-imports/no-unused-vars
+        } catch (_error) {
             throw new BadRequest('Invalid discord token')
         }
 

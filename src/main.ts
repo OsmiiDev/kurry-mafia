@@ -22,7 +22,6 @@ import { Database, ErrorHandler, EventManager, HealthMonitor, ImagesUpload, Logg
 import { initDataTable, resolveDependency } from '@/utils/functions'
 
 import { clientConfig } from './client'
-import { ActionManagerModule } from './modules/moderation/ActionManager'
 
 // eslint-disable-next-line node/no-path-concat
 const importPattern = `${__dirname}/{events,commands}/**/*.{ts,js}`
@@ -186,10 +185,6 @@ async function init() {
                 if (!env.GLOBAL) {
                     await client.application?.commands.set([])
                 }
-
-                resolveDependency(ActionManagerModule).then((actionManager) => {
-                    actionManager.init()
-                })
 
                 const store = await container.resolve(Store)
                 store.select('ready').subscribe(async (ready) => {

@@ -6,21 +6,21 @@ import type { Locales, Translations } from './i18n-types'
 import { loadedFormatters, loadedLocales, locales } from './i18n-util'
 
 const localeTranslationLoaders = {
-	en: () => import('./en'),
+en: () => import('./en'),
 }
 
 const updateDictionary = (locale: Locales, dictionary: Partial<Translations>): Translations =>
-	loadedLocales[locale] = { ...loadedLocales[locale], ...dictionary }
+loadedLocales[locale] = { ...loadedLocales[locale], ...dictionary }
 
 export const importLocaleAsync = async (locale: Locales): Promise<Translations> =>
-	(await localeTranslationLoaders[locale]()).default as unknown as Translations
+(await localeTranslationLoaders[locale]()).default as unknown as Translations
 
 export const loadLocaleAsync = async (locale: Locales): Promise<void> => {
-	updateDictionary(locale, await importLocaleAsync(locale))
-	loadFormatters(locale)
+updateDictionary(locale, await importLocaleAsync(locale))
+loadFormatters(locale)
 }
 
 export const loadAllLocalesAsync = (): Promise<void[]> => Promise.all(locales.map(loadLocaleAsync))
 
 export const loadFormatters = (locale: Locales): void =>
-	void (loadedFormatters[locale] = initFormatters(locale))
+void (loadedFormatters[locale] = initFormatters(locale))

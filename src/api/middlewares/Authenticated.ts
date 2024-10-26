@@ -1,6 +1,5 @@
 import { Context, Middleware, PlatformContext } from '@tsed/common'
 import { BadRequest, Unauthorized } from '@tsed/exceptions'
-import { PermissionsBitField } from 'discord.js'
 import DiscordOauth2 from 'discord-oauth2'
 import { Client } from 'discordx'
 import { inject } from 'tsyringe'
@@ -9,7 +8,7 @@ import { dashboardConfig } from '@/configs'
 import { Injectable } from '@/decorators'
 import { env } from '@/env'
 import { Store } from '@/services'
-import { isDev, resolveDependencies, resolveDependency } from '@/utils/functions'
+import { resolveDependencies } from '@/utils/functions'
 
 const discordOauth2 = new DiscordOauth2()
 

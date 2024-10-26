@@ -1,7 +1,7 @@
 import { CommandInteraction, InteractionResponse, Message } from 'discord.js'
 import { SimpleCommandMessage } from 'discordx'
 
-import { generalConfig, dashboardConfig } from '@/configs'
+import { dashboardConfig } from '@/configs'
 
 /**
  * Abstraction level to reply to either a slash command or a simple command message.

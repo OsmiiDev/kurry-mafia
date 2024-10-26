@@ -1,9 +1,5 @@
-import { channel } from 'node:diagnostics_channel'
-
-import { APIInteractionGuildMember, Application, ApplicationCommand, ApplicationCommandPermissions, ApplicationCommandPermissionType, GuildChannel, GuildMember, GuildResolvable, PermissionsBitField } from 'discord.js'
+import { ApplicationCommand, ApplicationCommandPermissions, ApplicationCommandPermissionType, GuildChannel, GuildMember, GuildResolvable, PermissionsBitField } from 'discord.js'
 import { Client } from 'discordx'
-
-import { resolveDependency } from './Dependency'
 
 export async function hasCommandPermissionAnywhere(member: GuildMember, command: ApplicationCommand<{ guild: GuildResolvable }>, client: Client) {
     if (member.permissions.has(PermissionsBitField.Flags.Administrator)) return true

@@ -1,10 +1,10 @@
 import { Category } from '@discordx/utilities'
-import { Application, ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildMember, Message, SlashCommandStringOption, ThreadChannel, User } from 'discord.js'
-import { Client, Guard, SimpleCommandOption, SimpleCommandOptionType } from 'discordx'
+import { ApplicationCommandOptionType, CommandInteraction, GuildMember, ThreadChannel } from 'discord.js'
+import { Client, Guard } from 'discordx'
 
 import { Discord, Slash, SlashOption } from '@/decorators'
 import { Cooldown, GuildOnly } from '@/guards'
-import { getColor, simpleErrorEmbed } from '@/utils/functions'
+import { simpleErrorEmbed } from '@/utils/functions'
 
 import { globalWhispersEnabled, mutedWhispers } from '../Admin/MuteWhispers'
 
@@ -28,6 +28,8 @@ const memberThreads: { [key: string]: string } = {
 
 const globalWhisper = ['1299229716754206730']
 
+const whisperAll = ['1292959263643271178']
+
 @Discord()
 @Category('General')
 export default class WhisperCommand {
@@ -38,11 +40,10 @@ export default class WhisperCommand {
     })
     @Guard(GuildOnly, Cooldown(3))
     async whisperCommand(
-		@SlashOption({ name: 'user', type: ApplicationCommandOptionType.User, description: 'The user to whisper to', required: true }) user: GuildMember,
-		@SlashOption({ name: 'message', type: ApplicationCommandOptionType.String, description: 'What you want to whisper them', required: true }) message: string,
-		interaction: CommandInteraction,
-		client: Client,
-		{ localize }: InteractionData
+@SlashOption({ name: 'user', type: ApplicationCommandOptionType.User, description: 'The user to whisper to', required: true }) user: GuildMember,
+@SlashOption({ name: 'message', type: ApplicationCommandOptionType.String, description: 'What you want to whisper them', required: true }) message: string,
+interaction: CommandInteraction,
+_client: Client
     ) {
         if (mutedWhispers.includes(interaction.user.id) || !globalWhispersEnabled || !interaction.guild) {
             return simpleErrorEmbed(interaction, 'You cannot send whispers right now.')
@@ -53,8 +54,8 @@ export default class WhisperCommand {
         user = await user.fetch()
 
         const threadId = memberThreads[user.id]
-		if(!threadId)  return simpleErrorEmbed(interaction, 'That user isn\'t participating.')
-		console.log(threadId);
+        if (!threadId) return simpleErrorEmbed(interaction, 'That user isn\'t participating.')
+        console.log(threadId)
         const thread = await interaction.guild.channels.fetch(threadId)
 
         if (!thread?.isTextBased()) return simpleErrorEmbed(interaction, 'An unexpected error occurred. Please report this to osmii!')
@@ -71,6 +72,15 @@ export default class WhisperCommand {
 
             (channel as ThreadChannel).send({
                 content: `**${interaction.user.username} whispers to ${user.user.username}:** ${message} `,
+            })
+        })
+
+        whisperAll.forEach(async (ch) => {
+            const channel = await interaction.guild?.channels.fetch(ch)
+            if (!thread.isTextBased()) return;
+
+            (channel as ThreadChannel).send({
+                content: `**${interaction.user.username} whispers to ${user.user.username}...`,
             })
         })
     }

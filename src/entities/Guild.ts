@@ -10,18 +10,18 @@ import { CustomBaseEntity } from './BaseEntity'
 @Entity({ repository: () => GuildRepository })
 export class Guild extends CustomBaseEntity {
 
-	[EntityRepositoryType]?: GuildRepository
+    [EntityRepositoryType]?: GuildRepository
 
-	@PrimaryKey({ autoincrement: false })
+    @PrimaryKey({ autoincrement: false })
     id!: string
 
-	@Property({ nullable: true, type: 'string' })
+    @Property({ nullable: true, type: 'string' })
     prefix: string | null
 
-	@Property()
+    @Property()
     deleted: boolean = false
 
-	@Property()
+    @Property()
     lastInteract: Date = new Date()
 
 }
@@ -32,17 +32,17 @@ export class Guild extends CustomBaseEntity {
 
 export class GuildRepository extends EntityRepository<Guild> {
 
-	async updateLastInteract(guildId?: string): Promise<void> {
-		const guild = await this.findOne({ id: guildId })
+    async updateLastInteract(guildId?: string): Promise<void> {
+        const guild = await this.findOne({ id: guildId })
 
-		if (guild) {
-			guild.lastInteract = new Date()
-			await this.em.flush()
-		}
-	}
+        if (guild) {
+            guild.lastInteract = new Date()
+            await this.em.flush()
+        }
+    }
 
-	async getActiveGuilds() {
-		return this.find({ deleted: false })
-	}
+    async getActiveGuilds() {
+        return this.find({ deleted: false })
+    }
 
 }

@@ -7,32 +7,32 @@ import { BaseError } from '@/utils/classes'
 @Service()
 export class ErrorHandler {
 
-	constructor(
-		private logger: Logger
-	) {
-		// Catch all exceptions
-		process.on('uncaughtException', (error: Error, origin: string) => {
-			// stop in case of unhandledRejection
-			if (origin === 'unhandledRejection')
-				return
+    constructor(
+        private logger: Logger
+    ) {
+        // Catch all exceptions
+        process.on('uncaughtException', (error: Error, origin: string) => {
+            // stop in case of unhandledRejection
+            if (origin === 'unhandledRejection')
+                return
 
-			// if instance of BaseError, call `handle` method
-			if (error instanceof BaseError)
-				return error.handle()
+            // if instance of BaseError, call `handle` method
+            if (error instanceof BaseError)
+                return error.handle()
 
-			// log the error
-			this.logger.logError(error, 'Exception')
-		})
+            // log the error
+            this.logger.logError(error, 'Exception')
+        })
 
-		// catch all Unhandled Rejection (promise)
-		process.on('unhandledRejection', (error: Error | any, _: Promise<any>) => {
-			// if instance of BaseError, call `handle` method
-			if (error instanceof BaseError)
-				return error.handle()
+        // catch all Unhandled Rejection (promise)
+        process.on('unhandledRejection', (error: Error | any, _: Promise<any>) => {
+            // if instance of BaseError, call `handle` method
+            if (error instanceof BaseError)
+                return error.handle()
 
-			// log the error
-			this.logger.logError(error, 'unhandledRejection')
-		})
-	}
+            // log the error
+            this.logger.logError(error, 'unhandledRejection')
+        })
+    }
 
 }

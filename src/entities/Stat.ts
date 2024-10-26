@@ -8,21 +8,21 @@ import { EntityRepository } from '@mikro-orm/sqlite'
 @Entity({ repository: () => StatRepository })
 export class Stat {
 
-	[EntityRepositoryType]?: StatRepository
+    [EntityRepositoryType]?: StatRepository
 
-	@PrimaryKey()
+    @PrimaryKey()
     id: number
 
-	@Property()
+    @Property()
     type!: string
 
-	@Property()
+    @Property()
     value: string = ''
 
-	@Property({ type: 'json', nullable: true })
+    @Property({ type: 'json', nullable: true })
     additionalData?: any
 
-	@Property()
+    @Property()
     createdAt: Date = new Date()
 
 }

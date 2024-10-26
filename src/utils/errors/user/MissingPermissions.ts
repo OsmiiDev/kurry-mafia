@@ -6,21 +6,21 @@ import { simpleErrorEmbed } from '@/utils/functions'
 
 export class MissingPermissionsError extends BaseError {
 
-	private interaction: CommandInteraction
-	private errorMessage: string | undefined
+    private interaction: CommandInteraction
+    private errorMessage: string | undefined
 
-	constructor(interaction: CommandInteraction, message?: string) {
-		super(message)
+    constructor(interaction: CommandInteraction, message?: string) {
+        super(message)
 
-		this.interaction = interaction
-		this.errorMessage = message
-	}
+        this.interaction = interaction
+        this.errorMessage = message
+    }
 
-	handle() {
-		const locale = getLocaleFromInteraction(this.interaction)
-		simpleErrorEmbed(this.interaction, L[locale].ERRORS.NO_PERMISSION({
-			permission: this.errorMessage ?? 'Unknown',
-		}))
-	}
+    handle() {
+        const locale = getLocaleFromInteraction(this.interaction)
+        simpleErrorEmbed(this.interaction, L[locale].ERRORS.NO_PERMISSION({
+            permission: this.errorMessage ?? 'Unknown',
+        }))
+    }
 
 }

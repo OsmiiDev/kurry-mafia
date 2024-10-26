@@ -20,7 +20,7 @@ export class Database {
     private _orm: MikroORM<BetterSqliteDriver>
 
     constructor(
-		@inject(delay(() => Store)) private store: Store,
+@inject(delay(() => Store)) private store: Store,
         @inject(delay(() => Logger)) private logger: Logger
     ) {}
 

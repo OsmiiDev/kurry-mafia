@@ -24,8 +24,8 @@
     "database:reset": "rimraf ./database && mkdir \"./database\" && mkdir \"./database/backups\"",
     "plugins:install": "installoop --rootDir=./src/plugins",
     "postinstall": "npm run plugins:install",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "dependencies": {
     "@discordx/importer": "^1.2.1",

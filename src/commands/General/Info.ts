@@ -2,7 +2,7 @@ import { Category } from '@discordx/utilities'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { CommandInteraction, EmbedBuilder, EmbedField, GuildChannel } from 'discord.js'
-import { Client, SimpleCommand, SimpleCommandMessage, SimpleCommandOption, SimpleCommandOptionType } from 'discordx'
+import { Client, SimpleCommand, SimpleCommandMessage } from 'discordx'
 
 import { generalConfig } from '@/configs'
 import { Discord, Injectable, Slash } from '@/decorators'

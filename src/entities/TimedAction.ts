@@ -1,5 +1,3 @@
-import { getRandomValues, randomBytes, randomInt } from 'node:crypto'
-
 import { Entity, EntityRepositoryType, PrimaryKey, Property } from '@mikro-orm/core'
 import { EntityRepository } from '@mikro-orm/sqlite'
 
@@ -18,7 +16,7 @@ export class PlayerEntity extends CustomBaseEntity {
     id!: string
 
     @Property({ nullable: true, type: 'json' })
-    data: {[key: string]: any} | null
+    data: { [key: string]: any } | null
 
 }
 
@@ -27,6 +25,5 @@ export class PlayerEntity extends CustomBaseEntity {
 // ===========================================
 
 export class PlayerRepository extends EntityRepository<PlayerEntity> {
-
 
 }

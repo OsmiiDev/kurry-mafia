@@ -1,7 +1,6 @@
-import { ColorResolvable, CommandInteraction, EmbedBuilder } from 'discord.js'
+import { CommandInteraction, EmbedBuilder } from 'discord.js'
 import { SimpleCommandMessage } from 'discordx'
 
-import { colorsConfig } from '@/configs'
 import { getColor, replyToInteraction } from '@/utils/functions'
 
 /**

@@ -6,17 +6,17 @@ import { simpleErrorEmbed } from '@/utils/functions'
 
 export class UnknownReplyError extends BaseError {
 
-	private interaction: CommandInteraction
+    private interaction: CommandInteraction
 
-	constructor(interaction: CommandInteraction, message?: string) {
-		super(message)
+    constructor(interaction: CommandInteraction, message?: string) {
+        super(message)
 
-		this.interaction = interaction
-	}
+        this.interaction = interaction
+    }
 
-	handle() {
-		const locale = getLocaleFromInteraction(this.interaction)
-		simpleErrorEmbed(this.interaction, L[locale].ERRORS.UNKNOWN())
-	}
+    handle() {
+        const locale = getLocaleFromInteraction(this.interaction)
+        simpleErrorEmbed(this.interaction, L[locale].ERRORS.UNKNOWN())
+    }
 
 }

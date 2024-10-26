@@ -8,5 +8,5 @@ import { colorsConfig } from '@/configs'
  * @returns the resolved color
  */
 export function getColor(colorResolver: keyof typeof colorsConfig) {
-	return colorsConfig[colorResolver] as ColorResolvable
+    return colorsConfig[colorResolver] as ColorResolvable
 }

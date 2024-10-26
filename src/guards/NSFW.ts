@@ -8,17 +8,17 @@ import { replyToInteraction, resolveChannel } from '@/utils/functions'
  * Prevent NSFW command from running in non-NSFW channels
  */
 export const NSFW: GuardFunction<
-	| CommandInteraction
-	| SimpleCommandMessage
+    | CommandInteraction
+    | SimpleCommandMessage
 > = async (arg, client, next) => {
-	const channel = resolveChannel(arg)
+    const channel = resolveChannel(arg)
 
-	if (!(channel instanceof TextChannel && !channel?.nsfw)) {
-		await next()
-	} else {
-		const locale = getLocaleFromInteraction(arg)
-		const localizedReplyMessage = L[locale].GUARDS.NSFW()
+    if (!(channel instanceof TextChannel && !channel?.nsfw)) {
+        await next()
+    } else {
+        const locale = getLocaleFromInteraction(arg)
+        const localizedReplyMessage = L[locale].GUARDS.NSFW()
 
-		await replyToInteraction(arg, localizedReplyMessage)
-	}
+        await replyToInteraction(arg, localizedReplyMessage)
+    }
 }

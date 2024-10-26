@@ -1,6 +1,4 @@
-import { URLSearchParams } from 'node:url'
-
-import { BodyParams, Controller, Get, QueryParams, UseBefore } from '@tsed/common'
+import { Controller, Get, QueryParams, UseBefore } from '@tsed/common'
 import { Required } from '@tsed/schema'
 import { Client } from 'discordx'
 
@@ -95,9 +93,9 @@ export class HealthController extends BaseController {
 
     @Get('/auditLogs')
     async auditLogs(
-		@Required() @QueryParams('before') before: number,
-		@Required() @QueryParams('after') after: number,
-		@QueryParams('mentions') mentions: string
+@Required() @QueryParams('before') before: number,
+@Required() @QueryParams('after') after: number,
+@QueryParams('mentions') mentions: string
     ) {
         const audit = await this.db.get(AuditEntry).get({
             afterDate: new Date(after),

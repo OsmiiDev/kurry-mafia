@@ -1,5 +1,5 @@
 import { CommandInteraction, EmbedBuilder } from 'discord.js'
-import { ArgsOf, GuardFunction, SimpleCommandMessage } from 'discordx'
+import { GuardFunction, SimpleCommandMessage } from 'discordx'
 
 import { getLocaleFromInteraction, L } from '@/i18n'
 import { getColor, replyToInteraction, simpleErrorEmbed, timeToString } from '@/utils/functions'

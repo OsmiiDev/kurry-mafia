@@ -1,11 +1,6 @@
 import { BetterSqliteDriver, SqlEntityManager } from '@mikro-orm/better-sqlite'
-import { Options, ReflectMetadataProvider } from '@mikro-orm/core'
-import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
+import { Options } from '@mikro-orm/core'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
-
-import { AuditEntry, Data, Guild, Image, Pastebin, Stat, TimedActionEntity, User } from '@/entities'
-// eslint-disable-next-line unused-imports/no-unused-imports
-import { env } from '@/env'
 
 type Config = {
     production: Options
@@ -36,7 +31,6 @@ const envMikroORMConfig = {
         // port: Number(env['DATABASE_PORT']),,
         // user: env['DATABASE_USER'],
         // password: env['DATABASE_PASSWORD'],
-
 
         driver: BetterSqliteDriver,
         entityManager: SqlEntityManager,
@@ -71,7 +65,7 @@ const envMikroORMConfig = {
             emit: 'js',
             snapshot: true,
         },
-        
+
         tsNode: true,
     },
 
