@@ -1,7 +1,0 @@
-{
-    "name": "trivia",
-    "description": "A plugin implementing server trivia!",
-    "version": "1.0.0",
-    "author": "osmii",
-    "tscordRequiredVersion": ">=1.0.0"
-}
