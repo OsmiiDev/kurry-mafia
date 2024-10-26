@@ -49,6 +49,10 @@ _client: Client
             return simpleErrorEmbed(interaction, 'You cannot send whispers right now.')
         }
 
+        if (user.id === interaction.user.id) {
+            return simpleErrorEmbed(interaction, 'You cannot whisper yourself.')
+        }
+
         await interaction.deferReply({ ephemeral: true })
 
         user = await user.fetch()
